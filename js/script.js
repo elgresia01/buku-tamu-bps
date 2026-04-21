@@ -56,11 +56,12 @@ function formatNoHp(input) {
 
 function validateForm() {
   const nama = document.getElementById("nama")?.value.trim();
+  const jenisKelamin = document.getElementById("jenisKelamin")?.value;
   const noHp = document.getElementById("noHp")?.value.trim();
   const instansi = document.getElementById("instansi")?.value.trim();
   const tujuan = document.getElementById("tujuan")?.value;
 
-  if (!nama || !noHp || !instansi || !tujuan) {
+  if (!nama || !jenisKelamin || !noHp || !instansi || !tujuan) {
     alert("Mohon lengkapi semua field yang wajib diisi (*)");
     return false;
   }
@@ -197,6 +198,7 @@ document
     const formData = {
       tanggal: document.getElementById("tanggal")?.value || "",
       nama: document.getElementById("nama")?.value.trim() || "",
+      jenisKelamin: document.getElementById("jenisKelamin")?.value || "",
       noHp:
         convertTo62Format(document.getElementById("noHp")?.value.trim()) || "",
       instansi: document.getElementById("instansi")?.value.trim() || "",
