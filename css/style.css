@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --primary-color: #070033;
   --secondary-color: #070033;
@@ -18,10 +22,11 @@
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Poppins", sans-serif;
   background: var(--bg-light);
   color: var(--text-dark);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 .container {
@@ -142,6 +147,7 @@ body {
 }
 
 .image-container {
+  overflow: hidden;
   position: relative;
   height: 100%;
   width: 100%;
@@ -151,6 +157,8 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Transisi lebih lambat & smooth */
+  transform: scale(1);
 }
 
 .overlay {
@@ -613,5 +621,272 @@ body {
 
   .footer-text {
     font-size: 13px;
+  }
+}
+
+/* =========================================
+   ANIMASI MODERN & SMOOTH
+   ========================================= */
+
+/* 1. FADE IN & SLIDE UP untuk Main Container */
+.main-container {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. HOVER EFFECT untuk Form Card */
+.buku-tamu-wrapper {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.buku-tamu-wrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(7, 0, 51, 0.15);
+}
+
+/* 3. INPUT ANIMATION - Smooth Focus */
+.form-input {
+  transition:
+    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.3s ease;
+  outline: none;
+  will-change: border-color, box-shadow;
+}
+
+.form-input:focus {
+  border-color: var(--primary-color);
+  box-shadow:
+    0 0 0 4px rgba(7, 0, 51, 0.08),
+    0 6px 16px rgba(7, 0, 51, 0.06);
+  background-color: #ffffff;
+  /* transform: translateY(-2px); */
+}
+
+/* 4. BUTTON HOVER & CLICK ANIMATION */
+.btn-submit {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-submit::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition:
+    width 0.6s,
+    height 0.6s;
+}
+
+.btn-submit:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(7, 0, 51, 0.3);
+}
+
+.btn-submit:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* 5. ICON ANIMATION - Icon di Input */
+.input-with-icon i {
+  position: absolute;
+  left: 15px;
+  z-index: 10; /* ✅ Pastikan ikon selalu di atas input */
+  pointer-events: none; /* ✅ Agar klik tembus langsung ke input */
+  transition:
+    color 0.3s ease,
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #94a3b8;
+}
+
+.input-with-icon:focus-within i {
+  color: #070033;
+  transform: scale(1.15); /* ✅ Hanya scale, tanpa translateY */
+}
+
+.form-input:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* 6. IMAGE ZOOM HOVER */
+.building-image {
+  transition: transform 0.5s ease;
+}
+
+.left-section:hover .building-image {
+  transform: scale(1.05);
+}
+
+/* 7. OVERLAY FADE */
+.overlay {
+  transition: background 0.3s ease;
+}
+
+.left-section:hover .overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(7, 0, 51, 0.9) 0%,
+    rgba(5, 0, 36, 0.95) 100%
+  );
+}
+
+/* 8. MODAL POP ANIMATION */
+.modal-content {
+  animation: modalPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+  }
+  70% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 9. SUCCESS ICON BOUNCE */
+.modal-icon {
+  animation: bounceIn 0.6s ease-out 0.3s both;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 10. LOADING SPINNER ENHANCED */
+.spinner {
+  animation: spin 1s linear infinite;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #ffffff;
+  border-right-color: #ffffff;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 11. SCROLL REVEAL - Elements appear on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 12. FOOTER WAVE ANIMATION */
+.footer::before {
+  animation: wave 10s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    border-radius: 0 0 50% 50%;
+  }
+  50% {
+    border-radius: 0 0 40% 60%;
+  }
+}
+
+/* 13. NAVBAR SCROLL EFFECT */
+.navbar {
+  transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled .brand-text h3,
+.navbar.scrolled .brand-text p {
+  color: #070033;
+}
+
+/* 14. FORM GROUP STAGGER ANIMATION */
+.form-group {
+  opacity: 0;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.form-group:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.form-group:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.form-group:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.form-group:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.form-group:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.form-group:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.form-group:nth-child(7) {
+  animation-delay: 0.7s;
+}
+.form-group:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+/* 15. REDUCE MOTION - Untuk pengguna yang sensitif */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

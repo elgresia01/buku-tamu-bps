@@ -250,3 +250,42 @@ if (mobileMenuBtn) {
     }
   });
 }
+
+// =========================================
+// ANIMASI SCROLL REVEAL
+// =========================================
+document.addEventListener("DOMContentLoaded", function () {
+  // Add class 'reveal' ke elemen-elemen yang ingin dianimasikan
+  const elementsToReveal = document.querySelectorAll(
+    ".buku-tamu-wrapper, .footer, .form-container",
+  );
+
+  elementsToReveal.forEach((el) => el.classList.add("reveal"));
+
+  // Observer untuk trigger animasi saat scroll
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 00px",
+    },
+  );
+
+  document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+});
+
+// Navbar scroll effect
+window.addEventListener("scroll", () => {
+  const navbar = document.querySelector(".navbar");
+  if (window.scrollY > 50) {
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+});
